@@ -19,3 +19,9 @@ __pycache__/
 
 # User-specific
 .gemini/
+
+*.log
+*.gv
+*.pdf
+*.bak
+debug_robot.urdf

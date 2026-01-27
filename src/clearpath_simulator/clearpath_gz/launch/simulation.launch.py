@@ -27,6 +27,14 @@ ARGUMENTS = [
     DeclareLaunchArgument('rviz', default_value='false',
                           choices=['true', 'false'], description='Start rviz.'),
     DeclareLaunchArgument('world', default_value='warehouse',
+                          choices=[
+                              'construction',
+                              'office',
+                              'orchard',
+                              'pipeline',
+                              'solar_farm',
+                              'warehouse',
+                          ],
                           description='Gazebo World'),
     DeclareLaunchArgument('setup_path',
                           default_value=[EnvironmentVariable('HOME'), '/clearpath/'],
@@ -34,10 +42,6 @@ ARGUMENTS = [
     DeclareLaunchArgument('use_sim_time', default_value='true',
                           choices=['true', 'false'],
                           description='use_sim_time'),
-    DeclareLaunchArgument('generate',
-                      default_value='true',
-                      choices=['true', 'false'],
-                      description='Generate parameters and launch files'),
 ]
 
 for pose_element in ['x', 'y', 'yaw']:
@@ -76,8 +80,7 @@ def generate_launch_description():
             ('x', LaunchConfiguration('x')),
             ('y', LaunchConfiguration('y')),
             ('z', LaunchConfiguration('z')),
-            ('yaw', LaunchConfiguration('yaw')),
-            ('generate', LaunchConfiguration('generate'))]
+            ('yaw', LaunchConfiguration('yaw'))]
     )
 
     # Create launch description and add actions

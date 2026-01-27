@@ -37,6 +37,12 @@
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
   </xacro:intel_realsense>
 
+  <!-- imu_0 -->
+  <xacro:include filename="$(find clearpath_sensors_description)/urdf/microstrain_imu.urdf.xacro"/>
+  <xacro:microstrain_imu name="imu_0" parent_link="default_mount" update_rate="100">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </xacro:microstrain_imu>
+
 
   <!-- Manipulators -->
 

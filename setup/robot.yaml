@@ -32,8 +32,8 @@ sensors:
         target_frame: lidar3d_0_laser
   camera:
     - model: intel_realsense
-      urdf_enabled: true
-      launch_enabled: true
+      urdf_enabled: false
+      launch_enabled: false
       parent: front_bumper_mount
       xyz: [0.0, 0.0, 0.0]
       rpy: [0.0, 0.0, 0.0]
@@ -47,3 +47,15 @@ sensors:
           enable_depth: true
           depth_module.profile: 640,480,30
           pointcloud.enable: true
+  imu:
+    - model: microstrain_imu
+      urdf_enabled: true
+      launch_enabled: true
+      parent: default_mount
+      xyz: [0.0, 0.0, 0.0]
+      rpy: [0.0, 0.0, 0.0]
+      ros_parameters:
+        microstrain_inertial_driver:
+          imu_frame_id: imu_0_link
+          port: /dev/microstrain_main
+          use_enu_frame: true

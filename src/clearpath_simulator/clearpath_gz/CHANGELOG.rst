@@ -2,33 +2,55 @@
 Changelog for package clearpath_gz
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.3.2 (2025-07-14)
+2.7.1 (2025-12-16)
 ------------------
-* Fixed `generate` flag for `robot_spawn` (`#89 <https://github.com/clearpathrobotics/clearpath_simulator/issues/89>`_)
-  * Update simulation.launch.py to have generate setting
-  * properlly define the generate flag usage
-  * added missing import
-* Contributors: Marius Juston
 
-1.3.1 (2025-04-30)
+2.7.0 (2025-08-25)
 ------------------
-* Convert `generate` to a boolean in if-statement (`#84 <https://github.com/clearpathrobotics/clearpath_simulator/issues/84>`_) (`#85 <https://github.com/clearpathrobotics/clearpath_simulator/issues/85>`_)
+* Add explicit gravity & realtime update rate to warehouse world (`#90 <https://github.com/clearpathrobotics/clearpath_simulator/issues/90>`_)
+  All other worlds include these parameters, so to keep things consistent add them to the Warehouse too.
 * Contributors: Chris Iverach-Brereton
 
-1.3.0 (2025-04-15)
+2.3.1 (2025-04-30)
 ------------------
-* Fix: Generation disable (`#76 <https://github.com/clearpathrobotics/clearpath_simulator/issues/76>`_)
-* Add argument to disable generation (`#74 <https://github.com/clearpathrobotics/clearpath_simulator/issues/74>`_)
-* Feature: MoveIt Parameters and Enable (`#70 <https://github.com/clearpathrobotics/clearpath_simulator/issues/70>`_)
-* Contributors: Luis Camero
+* Convert `generate` to a boolean in if-statement (`#84 <https://github.com/clearpathrobotics/clearpath_simulator/issues/84>`_)
+* Contributors: Chris Iverach-Brereton
 
-1.0.0 (2024-11-25)
+2.3.0 (2025-04-11)
 ------------------
-* Added minimum version.
+
+2.2.0 (2025-03-11)
+------------------
+* Forward port: Add argument to disable generation  (`#75 <https://github.com/clearpathrobotics/clearpath_simulator/issues/75>`_)
+  * Add argument to disable generation (`#74 <https://github.com/clearpathrobotics/clearpath_simulator/issues/74>`_)
+* Contributors: luis-camero
+
+2.0.0 (2025-01-30)
+------------------
+* Minor cleanup to remove unnecessary/relocated variables
+* Add GeoTif files, instructions for generating map tiles (`#60 <https://github.com/clearpathrobotics/clearpath_simulator/issues/60>`_)
+  * Add the geotif files & instructions for generating map tiles of the outdoor worlds. Add a column to the worlds table indicating the rough geographic region the world is tagged with
+  * Add the .gitignore file
+* Rotate the pipeline world so the solar panels face south. Adjust the pose of the ground so the robot's default spawn position is on flatter ground
+* Rotate the solar_farm world so the solar panels are correctly facing south
+* Increase the XY scaling of the pipeline world (`#58 <https://github.com/clearpathrobotics/clearpath_simulator/issues/58>`_)
+* Add more simulation environments (`#57 <https://github.com/clearpathrobotics/clearpath_simulator/issues/57>`_)
+  * Add the old cpr_inspection -> pipeline, cpr_agriculture -> solar_farm worlds
+  * Add the office & office_construction -> construction worlds
+  * Fix the path to the solar_farm models
+  * Add the orchard world
+  * Fix the world names for the office & construction worlds
+  * Add Dave N as an author, since he created the meshes used in the new worlds
+* Rename Gazbo libraries (`#55 <https://github.com/clearpathrobotics/clearpath_simulator/issues/55>`_)
+  * IGN_GAZEBO_RESOURCE_PATH -> GZ_SIM_RESOURCE_PATH
+  * More ignition -> gz fixes. Use stamped messages for cmd_vel
+  * Change the clock bridge to unidirectional instead of bidirectional
+* Fix import orders in clearpath_gz
 * Play sim automatically (`#52 <https://github.com/clearpathrobotics/clearpath_simulator/issues/52>`_)
   * Play sim automatically
   * Accept auto_start as a launch configuration to support previous behavior although default is true
-* Contributors: Hilary Luo, Tony Baltovski
+* Rename ign\_ -> gz\_ for gazebo dependencies
+* Contributors: Chris Iverach-Brereton, Hilary Luo
 
 0.3.0 (2024-09-19)
 ------------------

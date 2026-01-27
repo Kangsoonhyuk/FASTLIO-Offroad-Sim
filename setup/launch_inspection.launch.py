@@ -35,7 +35,7 @@ def generate_launch_description():
 
     def launch_setup(context, *args, **kwargs):
         scenario_val = context.launch_configurations['scenario']
-        base_path = '/home/kangsoonhyuk/clearpath_ws/src/cpr_gazebo/cpr_inspection_gazebo/worlds'
+        base_path = '/home/kangsoonhyuk/clearpath_ws/src/clearpath_simulator/clearpath_gz/worlds'
         
         if scenario_val == 'base':
             world_name = 'inspection_baseline'
@@ -54,7 +54,7 @@ def generate_launch_description():
             ('use_sim_time', 'true'),
             ('x', '18.0'),
             ('y', '10.0'),
-            ('z', '2.0'),
+            ('z', '-1.5'),
             ('yaw', '0.0')
         ]
         
@@ -64,7 +64,7 @@ def generate_launch_description():
 
         # Calculate resource path
         packages_paths = [os.path.join(p, 'share') for p in os.getenv('AMENT_PREFIX_PATH', '').split(':')]
-        custom_model_path = '/home/kangsoonhyuk/clearpath_ws/src/cpr_gazebo'
+        custom_model_path = '/home/kangsoonhyuk/clearpath_ws/src/clearpath_simulator/clearpath_gz/meshes'
         resource_paths = [os.path.join(pkg_clearpath_gz, 'worlds'), custom_model_path] + packages_paths
         
         set_resource_path = SetEnvironmentVariable(
