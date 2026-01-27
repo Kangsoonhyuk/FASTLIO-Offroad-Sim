@@ -58,10 +58,7 @@ ros2 launch setup/launch_inspection.launch.py
 ```bash
 ros2 launch setup/launch_inspection.launch.py scenario:=base
 ```
-<p align="center">
-  <img src="doc/img/baseline_view_1.jpg" width="45%" />
-  <img src="doc/img/baseline_view_2.png" width="45%" />
-</p>
+
 
 ### Robot Configuration & Topics **(IMPORTANT)**
 The robot is configured in `setup/robot.yaml` with the following specs:
@@ -99,7 +96,10 @@ This simulation is designed to test three main scenarios for off-road autonomous
 
 2. **Performance Comparison**:
    - **Case 2.1 (Baseline)**: Navigation in an obstacle-free, flat terrain.
+     <br/><img src="doc/img/scenario_baseline.png" width="60%" />
+
    - **Case 2.2 (Test Case)**: Navigation in the "Inspection World" with obstacles (trees) and significant slopes.
+     <br/><img src="doc/img/scenario_test.jpg" width="60%" />
    
    The goal is to compare the robustness and efficiency of the navigation stack (FAST-LIO + Nav2) between these conditions.
 
