@@ -44,11 +44,19 @@ A custom Clearpath Husky simulation environment designed for testing FAST-LIO in
    source install/setup.bash
    ```
 
-## Launch
 ### Launching the Simulation
-This launches the detailed inspection world with the customized Husky robot.
+You can choose between the **Test** scenario (with tree rows as obstacles) or the **Baseline** scenario (without row obstacles).
+
+**1. Test Scenario (Default)**:
 ```bash
+ros2 launch setup/launch_inspection.launch.py scenario:=test
+# Or simply
 ros2 launch setup/launch_inspection.launch.py
+```
+
+**2. Baseline Scenario (No Row Obstacles)**:
+```bash
+ros2 launch setup/launch_inspection.launch.py scenario:=base
 ```
 
 ### Robot Configuration & Topics **(IMPORTANT)**
