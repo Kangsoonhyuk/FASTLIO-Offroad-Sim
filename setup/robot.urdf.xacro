@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="a200-0000">
+
+  <!-- Common -->
+  <xacro:include filename="$(find clearpath_platform_description)/urdf/common.urdf.xacro"/>
+
+  <!-- Platform -->
+  <xacro:include filename="$(find clearpath_platform_description)/urdf/a200/a200.urdf.xacro"/>
+  <xacro:a200 wheel="default"/>
+
+
+  <!-- Attachments -->
+
+  <xacro:include filename="$(find clearpath_platform_description)/urdf/a200/attachments/sensor_arch.urdf.xacro"/>
+  <xacro:sensor_arch name="sensor_arch" model="sensor_arch_300" parent_link="default_mount">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </xacro:sensor_arch>
+
+
+  <!-- Links -->
+
+
+  <!-- Mounts -->
+
+
+  <!-- Sensors -->
+
+  <!-- lidar3d_0 -->
+  <xacro:include filename="$(find clearpath_sensors_description)/urdf/velodyne_lidar.urdf.xacro"/>
+  <xacro:velodyne_lidar name="lidar3d_0" parent_link="sensor_arch_mount" ang_res_h="0.4" ang_res_v="2.0" min_ang_h="-3.141592" max_ang_h="3.141592" min_ang_v="-0.261799" max_ang_v="0.261799" min_range="0.9" max_range="130.0" update_rate="50">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </xacro:velodyne_lidar>
+
+  <!-- camera_0 -->
+  <xacro:include filename="$(find clearpath_sensors_description)/urdf/intel_realsense.urdf.xacro"/>
+  <xacro:intel_realsense name="camera_0" parent_link="front_bumper_mount" update_rate="30" image_height="480" image_width="640">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </xacro:intel_realsense>
+
+
+  <!-- Manipulators -->
+
+
+  <!-- Extras -->
+
+
+</robot>

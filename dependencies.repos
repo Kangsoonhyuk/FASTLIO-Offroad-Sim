@@ -1,0 +1,17 @@
+repositories:
+  clearpath_common:
+    type: git
+    url: https://github.com/clearpathrobotics/clearpath_common.git
+    version: humble
+  clearpath_config:
+    type: git
+    url: https://github.com/clearpathrobotics/clearpath_config.git
+    version: humble
+  clearpath_msgs:
+    type: git
+    url: https://github.com/clearpathrobotics/clearpath_msgs.git
+    version: humble
+  clearpath_simulator:
+    type: git
+    url: https://github.com/clearpathrobotics/clearpath_simulator.git
+    version: humble
