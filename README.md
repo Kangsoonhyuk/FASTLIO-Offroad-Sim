@@ -94,7 +94,6 @@ This simulation is designed to test three main scenarios for off-road autonomous
 1. **Off-road Autonomous Navigation**: 
    - The Husky robot navigates towards a goal in a rough terrain environment (Inspection World) filled with slopes and dense trees.
      <br/><img src="doc/img/scenario_offroad.png" width="60%" />
-   <img src="doc/img/scenario_baseline.png" width="60%" />
 
 2. **Performance Comparison**:
    - **Case 2.1 (Baseline)**: Navigation in an obstacle-free, flat terrain.
