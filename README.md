@@ -17,8 +17,8 @@ A custom Clearpath Husky simulation environment designed for testing FAST-LIO in
 ### Installation
 1. **Clone this repository:**
    ```bash
-   mkdir -p ~/clearpath_ws/src
-   cd ~/clearpath_ws
+   mkdir -p ~/(your_ws)/src
+   cd ~/(your_ws)
    git clone https://github.com/Kangsoonhyuk/FASTLIO-Offroad-Sim.git .
    ```
 
@@ -50,8 +50,6 @@ You can choose between the **Test** scenario (with tree rows as obstacles) or th
 **1. Test Scenario (Default)**:
 ```bash
 ros2 launch setup/launch_inspection.launch.py scenario:=test
-# Or simply
-ros2 launch setup/launch_inspection.launch.py
 ```
 
 **2. Baseline Scenario (No Row Obstacles)**:
@@ -60,30 +58,14 @@ ros2 launch setup/launch_inspection.launch.py scenario:=base
 ```
 
 
-### Robot Configuration & Topics **(IMPORTANT)**
-The robot is configured in `setup/robot.yaml` with the following specs:
-- **Robot Model**: Clearpath Husky A200
-- **Sensors**: 
-  - **LiDAR**: Velodyne VLP-16 (3D LiDAR) mounted on a sensor arch.
-  - **Camera**: Intel RealSense D435 (RGB-D) mounted on the front bumper.
-- **Hostname**: `cpr-a200-0000`
-- **Serial Number**: `a200-0000`
+### Robot Configuration & Teleoperation
+This simulation uses a standard **Clearpath Husky A200** equipped with:
+- **LiDAR**: Velodyne VLP-16
+- **Camera**: Intel RealSense D435
 
-**Topic Namespacing**:
-Because the `serial_number` is set to `a200-0000`, all ROS 2 topics will be namespaced accordingly. To control the robot or view sensor data, you MUST use the correct topic names:
-- **Lidar**: `/a200_0000/sensors/lidar3d_0/points`
-- **Camera**: `/a200_0000/sensors/camera_0/...`
-- **Cmd Vel**: `/a200_0000/cmd_vel`
-- **Odometry**: `/a200_0000/odometry`
-
-*Check `setup/robot.yaml` if you wish to change the hostname or serial number.*
-
-### Gazebo GUI Teleop 
-If you want to drive the robot using the **Teleop** plugin in the right-side panel of Gazebo:
-1.  Look for the "Teleop" section.
-2.  Set the topic to include the robot's namespace (derived from the hostname in `robot.yaml`).
-3.  **Correct Topic**: `/a200_0000/cmd_vel`
-    *   (Default `/cmd_vel` will **NOT** work because the robot is namespaced)
+**Note on Teleoperation**: 
+All robot topics are namespaced. When using the **Gazebo Teleop plugin**, you **MUST** change the topic from `/cmd_vel` to:
+> **/(your_hostname)/cmd_vel**
 
 ### World Modification
 The simulation world is located at `src/cpr_gazebo/cpr_inspection_gazebo/worlds/inspection.sdf`.
