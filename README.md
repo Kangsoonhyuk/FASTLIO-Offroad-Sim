@@ -69,6 +69,13 @@ Because the `serial_number` is set to `a200-0000`, all ROS 2 topics will be name
 
 *Check `setup/robot.yaml` if you wish to change the hostname or serial number.*
 
+### Gazebo GUI Teleop 
+If you want to drive the robot using the **Teleop** plugin in the right-side panel of Gazebo:
+1.  Look for the "Teleop" section.
+2.  Set the topic to include the robot's namespace (derived from the hostname in `robot.yaml`).
+3.  **Correct Topic**: `/a200_0000/cmd_vel`
+    *   (Default `/cmd_vel` will **NOT** work because the robot is namespaced)
+
 ### World Modification
 The simulation world is located at `src/cpr_gazebo/cpr_inspection_gazebo/worlds/inspection.sdf`.
 

@@ -213,7 +213,7 @@
       <pose>10 35 1.5 0 0 0</pose>
     </include>
     <!-- Row 1 Extension (25,9 ... 20,4) -->
-    <include>
+    <!-- <include>
       <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
       <name>pine_row1_1</name>
       <pose>25 9 0 0 0 0</pose>
@@ -306,6 +306,6 @@
       <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
       <name>pine_row3_9</name>
       <pose>10 12 -2 0 0 0</pose>
-    </include>
+    </include> -->
   </world>
 </sdf>
