@@ -58,6 +58,10 @@ ros2 launch setup/launch_inspection.launch.py
 ```bash
 ros2 launch setup/launch_inspection.launch.py scenario:=base
 ```
+<p align="center">
+  <img src="doc/img/baseline_view_1.jpg" width="45%" />
+  <img src="doc/img/baseline_view_2.png" width="45%" />
+</p>
 
 ### Robot Configuration & Topics **(IMPORTANT)**
 The robot is configured in `setup/robot.yaml` with the following specs:
