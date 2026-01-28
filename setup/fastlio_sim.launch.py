@@ -60,7 +60,7 @@ def generate_launch_description():
     )
 
     delayed_fast_lio = TimerAction(
-        period=5.0,
+        period=10.0,
         actions=[fast_lio_node, rviz_node]
     )
 

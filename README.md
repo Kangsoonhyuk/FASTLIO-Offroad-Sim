@@ -83,34 +83,17 @@ This simulation is designed to test three main scenarios for off-road autonomous
 
 ## Troubleshooting
 
-### Symptom
-FAST-LIO logs "Leaf size is too small" and "Integer indices overflow," causing mapping to fail immediately.
+- **Error**: FAST-LIO logs `Leaf size is too small` and `Integer indices overflow`, causing immediate failure.
+  - **Cause**: **IMU Initialization Failure** due to motion or impact. FAST-LIO assumes the robot is **stationary** for the first few frames (see `IMU_Processing.hpp`) to calculate gravity and bias. If the robot drops (even 0.2cm) during this phase, the massive acceleration spike distorts this calculation, causing the EKF to diverge and the position to shoot to infinity.
+  - **Solution**: Ensure the robot is **completely stationary** and the simulation is stable before launching FAST-LIO. Do not launch FAST-LIO while the robot is still settling or moving after spawn.
 
-### The Lesson: Calibration & Initialization Stability
-The root cause was the **initial robot spawn condition**. Spawning the robot too high above the ground causes it to drop and impact the terrain upon start.
+- **Error**: FAST-LIO logs `Failed to find match for field 'time'.`
+  - **Cause**: Gazebo Fortress often optimizes out the `time` field from point cloud data, but FAST-LIO's `Velodyne (2)` mode requires this field for deskewing.
+  - **Solution**: Set `preprocess.lidar_type` to **5 (Generic)** to bypass hardware-specific field checks.
 
-- **The Impact**: This sudden physical jar creates a massive spike in the IMU data at the exact moment FAST-LIO is attempting to initialize its state and extrinsic calibration.
-- **The Result**: The "exploding" coordinates are a mathematical side-effect of the EKF diverging due to this initial shock. 
-- **The Solution**: **Ensuring the robot is spawned flush with the ground** is critical. A stable, impact-free start ensures a "clean" IMU signal, allowing the filters to converge correctly without the need for external data pre-processing.
-
-
-### Symptom
-FAST-LIO logs "Failed to find match for field 'time'."
-
-### The Lesson: Gazebo Fortress Optimization
-Velodyne LiDARs typically provide a `time` field for each point to allow for motion distortion correction. However, **Gazebo Fortress** often optimizes this field out of the simulated point cloud data for performance reasons.
-
-- **The Problem**: If the `lidar_type` in FAST-LIO is set to **2 (Velodyne)**, the algorithm explicitly looks for this `time` field. When it is missing, the driver throws this error.
-- **The Solution**: Change the `lidar_type` parameter in your FAST-LIO config (or launch file) to **5 (Generic)**. This tells FAST-LIO to treat the point cloud as a standard generic cloud without expecting specific hardware timestamps.
-
-### Symptom
-FAST-LIO logs various warnings: `[laser_mapping]: No point, skip this scan!`
-
-### The Lesson: Simulation Latency & Point Filtering
-This warning appears when Fast-LIO receives a point cloud message that is either empty or contains only invalid points (NaN/Inf) after pre-processing.
-
-- **The Cause**: In Gazebo simulation, especially during startup or rapid movement over rough terrain, the simulated LiDAR ray-casting may momentarily fail to return valid returns (e.g., hitting the sky or initialization delay). Fast-LIO filters out these invalid points. If a frame results in 0 valid points, this warning is generated.
-- **The Solution**: **Safe to Ignore**. As long as the mapping process continues and the robot pose updates correctly, these are transient warnings caused by the physics engine's calculation quirks.
+- **Error**: FAST-LIO warning `[laser_mapping]: No point, skip this scan!`
+  - **Cause**: Transient simulation artifacts (e.g., raycasting hitting sky or NaNs during rapid movement) result in frames with zero valid points after filtering.
+  - **Solution**: **Safe to ignore**. This is a common simulation quirk and does not affect mapping if the robot pose continues to update correctly.
 
 
 ---

@@ -49,7 +49,7 @@ def generate_launch_description():
             ('use_sim_time', 'true'),
             ('x', '22.0'),
             ('y', '30.0'),
-            ('z', '0.7'),
+            ('z', '1.5'),
             ('yaw', '0.0')
         ]
         
