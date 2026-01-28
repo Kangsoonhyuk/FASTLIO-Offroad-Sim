@@ -16,7 +16,7 @@
         time_offset_lidar_to_imu: 0.0 
 
     preprocess:
-        lidar_type: 2                # 5: Generic w/ PC2 (Trick to bypass AVIA CustomMsg check and use default_handler)
+        lidar_type: 5                # 5: Generic w/ PC2 (Trick to bypass AVIA CustomMsg check and use default_handler)
         scan_line: 16
         scan_rate: 10                
         timestamp_unit: 2            # 

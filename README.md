@@ -36,14 +36,10 @@ The environment is based on the modern **Clearpath ROS 2 Pipeline**, where we ha
 ### Launching the Simulation
 You can choose between the **Test** scenario (with tree rows as obstacles) or the **Baseline** scenario (without row obstacles).
 
-**1. Test Scenario (Default)**:
-```bash
-ros2 launch setup/launch_inspection.launch.py scenario:=test
-```
+To launch the simulation with the default "pipeline" world:
 
-**2. Baseline Scenario (No Row Obstacles)**:
 ```bash
-ros2 launch setup/launch_inspection.launch.py scenario:=base
+ros2 launch setup/launch_sim.launch.py
 ```
 
 ### Robot Configuration & Teleoperation
@@ -56,7 +52,7 @@ All robot topics are namespaced. When using the **Gazebo Teleop plugin**, you **
 > **/(your_hostname)/cmd_vel**
 
 ### World Modification
-The simulation world is located at `src/cpr_gazebo/cpr_inspection_gazebo/worlds/inspection.sdf`.
+The simulation world is located at `src/clearpath_simulator/clearpath_gz/worlds/pipeline.sdf`.
 
 ## Scenarios
 This simulation is designed to test three main scenarios for off-road autonomous navigation:
@@ -86,6 +82,25 @@ The root cause was the **initial robot spawn condition**. Spawning the robot too
 - **The Impact**: This sudden physical jar creates a massive spike in the IMU data at the exact moment FAST-LIO is attempting to initialize its state and extrinsic calibration.
 - **The Result**: The "exploding" coordinates are a mathematical side-effect of the EKF diverging due to this initial shock. 
 - **The Solution**: **Ensuring the robot is spawned flush with the ground** is critical. A stable, impact-free start ensures a "clean" IMU signal, allowing the filters to converge correctly without the need for external data pre-processing.
+
+
+### Symptom
+FAST-LIO logs "Failed to find match for field 'time'."
+
+### The Lesson: Gazebo Fortress Optimization
+Velodyne LiDARs typically provide a `time` field for each point to allow for motion distortion correction. However, **Gazebo Fortress** often optimizes this field out of the simulated point cloud data for performance reasons.
+
+- **The Problem**: If the `lidar_type` in FAST-LIO is set to **2 (Velodyne)**, the algorithm explicitly looks for this `time` field. When it is missing, the driver throws this error.
+- **The Solution**: Change the `lidar_type` parameter in your FAST-LIO config (or launch file) to **5 (Generic)**. This tells FAST-LIO to treat the point cloud as a standard generic cloud without expecting specific hardware timestamps.
+
+### Symptom
+FAST-LIO logs various warnings: `[laser_mapping]: No point, skip this scan!`
+
+### The Lesson: Simulation Latency & Point Filtering
+This warning appears when Fast-LIO receives a point cloud message that is either empty or contains only invalid points (NaN/Inf) after pre-processing.
+
+- **The Cause**: In Gazebo simulation, especially during startup or rapid movement over rough terrain, the simulated LiDAR ray-casting may momentarily fail to return valid returns (e.g., hitting the sky or initialization delay). Fast-LIO filters out these invalid points. If a frame results in 0 valid points, this warning is generated.
+- **The Solution**: **Safe to Ignore**. As long as the mapping process continues and the robot pose updates correctly, these are transient warnings caused by the physics engine's calculation quirks.
 
 
 ---
