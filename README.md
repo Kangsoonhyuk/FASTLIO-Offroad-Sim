@@ -19,28 +19,38 @@ The environment is based on the modern **Clearpath ROS 2 Pipeline**, where we ha
 ### Installation
 1. **Clone and Setup Workspace:**
    ```bash
-   mkdir -p ~/clearpath_ws/src
-   cd ~/clearpath_ws
+   mkdir -p ~/your_ws/src
+   cd ~/your_ws
    git clone https://github.com/Kangsoonhyuk/FASTLIO-Offroad-Sim.git .
    ```
 
 2. **Import Dependencies & Build:**
    ```bash
+   # Import required repositories (Clearpath, Velodyne, FAST-LIO, etc.)
    vcs import src < dependencies.repos
+   
+   # Install system dependencies (including PCL and ROS packages)
    rosdep install --from-paths src --ignore-src -r -y
+   
+   # Build the workspace
    colcon build --symlink-install
+   
+   # Source the setup script
    source install/setup.bash
    ```
 
 ## Usage
 ### Launching the Simulation
-You can choose between the **Test** scenario (with tree rows as obstacles) or the **Baseline** scenario (without row obstacles).
 
-To launch the simulation with the default "pipeline" world:
+- **Scenario 1 & 2.1 (Baseline)**:
+  ```bash
+  ros2 launch setup/fastlio_sim.launch.py scenario:=base
+  ```
 
-```bash
-ros2 launch setup/launch_sim.launch.py
-```
+- **Scenario 2.2 (Test Case)**:
+  ```bash
+  ros2 launch setup/fastlio_sim.launch.py scenario:=test
+  ```
 
 ### Robot Configuration & Teleoperation
 This simulation uses a standard **Clearpath Husky A200** equipped with:
