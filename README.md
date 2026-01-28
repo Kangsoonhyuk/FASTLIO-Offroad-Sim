@@ -33,17 +33,47 @@ The environment is based on the modern **Clearpath ROS 2 Pipeline**, where we ha
    ```
 
 ## Usage
-### Launching with FAST-LIO
-To launch the full simulation including Gazebo, the robot, and the FAST-LIO mapping stack:
+### Launching the Simulation
+You can choose between the **Test** scenario (with tree rows as obstacles) or the **Baseline** scenario (without row obstacles).
+
+**1. Test Scenario (Default)**:
 ```bash
-# This launch file triggers the robot spawn and initializes FAST-LIO + RViz
-ros2 launch setup/simulation_with_fastlio.launch.py
+ros2 launch setup/launch_inspection.launch.py scenario:=test
 ```
 
-### Scenarios
-Select your terrain by passing the `scenario` argument:
-- `test`: Inspection World with trees and slopes.
-- `base`: Obstacle-free flat terrain for baseline testing.
+**2. Baseline Scenario (No Row Obstacles)**:
+```bash
+ros2 launch setup/launch_inspection.launch.py scenario:=base
+```
+
+### Robot Configuration & Teleoperation
+This simulation uses a standard **Clearpath Husky A200** equipped with:
+- **LiDAR**: Velodyne VLP-16
+- **Camera**: Intel RealSense D435
+
+**Note on Teleoperation**: 
+All robot topics are namespaced. When using the **Gazebo Teleop plugin**, you **MUST** change the topic from `/cmd_vel` to:
+> **/(your_hostname)/cmd_vel**
+
+### World Modification
+The simulation world is located at `src/cpr_gazebo/cpr_inspection_gazebo/worlds/inspection.sdf`.
+
+## Scenarios
+This simulation is designed to test three main scenarios for off-road autonomous navigation:
+
+1. **Off-road Autonomous Navigation**: 
+   - The Husky robot navigates towards a goal in a rough terrain environment (Inspection World) filled with slopes and dense trees.
+     <br/><img src="doc/img/scenario_offroad.png" width="60%" />
+
+2. **Performance Comparison**:
+   - **Case 2.1 (Baseline)**: Navigation in an obstacle-free, flat terrain.
+     <br/><img src="doc/img/scenario_baseline.jpg" width="60%" />
+   - **Case 2.2 (Test Case)**: Navigation in the "Inspection World" with obstacles (trees) and significant slopes.
+     <br/><img src="doc/img/scenario_test.jpg" width="60%" />
+   
+   The goal is to compare the robustness and efficiency of the navigation stack (FAST-LIO + Nav2) between these conditions.
+
+## Demo Video
 
 ## Troubleshooting
 
@@ -65,4 +95,4 @@ This project makes use of the following open-source packages:
 
 - **[Clearpath Robotics](https://github.com/clearpathrobotics)**: Husky platform, simulation environment, and configuration tools.
 - **[Velodyne Simulator](https://github.com/ToyToyota/velodyne_simulator)**: Simulation plugins for Velodyne LiDAR.
-- **[FAST_LIO](https://github.com/hku-mars/FAST_LIO)**: Fast-LIO2 framework for mapping.
+- **[FAST_LIO](https://github.com/hku-mars/FAST_LIO)**: Fast-LIO2 framework for SLAM.
