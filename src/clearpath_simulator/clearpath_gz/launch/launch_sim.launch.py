@@ -16,6 +16,11 @@ def generate_launch_description():
         default_value='test',
         description='Simulation scenario: "test" (with obstacles) or "base" (baseline, no row trees)')
 
+    arg_gui = DeclareLaunchArgument(
+        'gui',
+        default_value='true',
+        description='Launch Gazebo GUI if true')
+
     # However, substitutions are resolved at runtime.
     # Let's use Python conditionals if possible? No, we need OpaqueFunction or just rely on the fact 
     # that we can construct the string. But '.sdf' is appended by the launch args logic.
@@ -30,6 +35,7 @@ def generate_launch_description():
 
     def launch_setup(context, *args, **kwargs):
         scenario_val = context.launch_configurations['scenario']
+        gui_val = context.launch_configurations['gui']
         base_path = '/home/kangsoonhyuk/clearpath_ws/src/clearpath_simulator/clearpath_gz/worlds'
         
         if scenario_val == 'base':
@@ -66,10 +72,15 @@ def generate_launch_description():
             name='IGN_GAZEBO_RESOURCE_PATH',
             value=':'.join(resource_paths))
 
+        gz_args_list = [world_path, '.sdf', ' -r', ' -v 4']
+        
+        if gui_val != 'true':
+            gz_args_list.append(' -s')
+
         gz_sim = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([gz_sim_launch_path]),
             launch_arguments=[
-                ('gz_args', [world_path, '.sdf', ' -r', ' -v 4', ' --gui-config ', gui_config])
+                ('gz_args', gz_args_list)
             ]
         )
 
@@ -91,5 +102,6 @@ def generate_launch_description():
 
     return LaunchDescription([
         arg_scenario,
+        arg_gui,
         OpaqueFunction(function=launch_setup)
     ])

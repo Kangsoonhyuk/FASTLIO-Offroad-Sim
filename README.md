@@ -44,12 +44,12 @@ The environment is based on the modern **Clearpath ROS 2 Pipeline**, where we ha
 
 - **Scenario 1 & 2.1 (Baseline)**:
   ```bash
-  ros2 launch setup/fastlio_sim.launch.py scenario:=base
+  ros2 launch fast_lio fastlio_sim.launch.py scenario:=base
   ```
 
 - **Scenario 2.2 (Test Case)**:
   ```bash
-  ros2 launch setup/fastlio_sim.launch.py scenario:=test
+  ros2 launch fast_lio fastlio_sim.launch.py scenario:=test
   ```
 
 ### Robot Configuration & Teleoperation

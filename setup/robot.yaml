@@ -22,7 +22,7 @@ sensors:
     rpy: [0.0, 0.0, 0.0]
     ros_parameters:
       velodyne_driver_node:
-        frame_id: lidar3d_0_laser
+        frame_id: lidar3d_0_link
         device_ip: 192.168.131.25
         port: 2368
         model: VLP16

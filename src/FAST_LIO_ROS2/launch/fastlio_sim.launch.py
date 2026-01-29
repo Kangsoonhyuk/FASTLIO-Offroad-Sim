@@ -8,11 +8,12 @@ import os
 
 def generate_launch_description():
     # Directories
-    setup_dir = '/home/kangsoonhyuk/clearpath_ws/setup/'
+    # Directories
+    clearpath_gz_dir = get_package_share_directory('clearpath_gz')
     fast_lio_dir = get_package_share_directory('fast_lio')
 
     # Launch Files
-    inspection_launch = PathJoinSubstitution([setup_dir, 'launch_sim.launch.py'])
+    inspection_launch = PathJoinSubstitution([clearpath_gz_dir, 'launch', 'launch_sim.launch.py'])
     
     # Arguments
     arg_scenario = DeclareLaunchArgument(
@@ -21,11 +22,18 @@ def generate_launch_description():
         description='Simulation scenario'
     )
 
+    arg_gui = DeclareLaunchArgument(
+        'gui', 
+        default_value='true',
+        description='Launch Gazebo GUI if true'
+    )
+
     # 1. Launch Simulation (Gazebo + Robot + Sensors)
     sim_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([inspection_launch]),
         launch_arguments={
-            'scenario': LaunchConfiguration('scenario')
+            'scenario': LaunchConfiguration('scenario'),
+            'gui': LaunchConfiguration('gui')
         }.items()
     )
 
@@ -66,6 +74,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         arg_scenario,
+        arg_gui,
         sim_launch,
         delayed_fast_lio
     ])
