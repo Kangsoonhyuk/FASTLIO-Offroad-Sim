@@ -1,10 +1,12 @@
+import os
+
+from ament_index_python.packages import get_package_share_directory
+
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, TimerAction, DeclareLaunchArgument
-from launch_ros.actions import Node
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
-from ament_index_python.packages import get_package_share_directory
-import os
+from launch_ros.actions import Node
 
 def generate_launch_description():
     # Directories
@@ -14,6 +16,9 @@ def generate_launch_description():
     # Launch Files
     inspection_launch = PathJoinSubstitution([clearpath_gz_dir, 'launch', 'launch_sim.launch.py'])
     
+    # Octomap Params
+    nav2_octomap_params_file = os.path.join(fast_lio_dir, 'config', 'nav2_octomap_params.yaml')
+
     # Arguments
     arg_scenario = DeclareLaunchArgument(
         'scenario', 
@@ -37,7 +42,6 @@ def generate_launch_description():
     )
 
     # 2. Launch FAST-LIO directly (Override Parameters)
-    # We choose velodyne_simulation.yaml as base, but overrides are crucial.
     config_file = PathJoinSubstitution([fast_lio_dir, 'config', 'velodyne_simulation.yaml'])
     rviz_config = PathJoinSubstitution([fast_lio_dir, 'rviz', 'fastlio.rviz'])
 
@@ -65,15 +69,36 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}],
         output='screen'
     )
+    
+    # 3. Launch Octomap Server
+    octomap_node = Node(
+        package='octomap_server',
+        executable='octomap_server_node',
+        name='octomap_server',
+        output='screen',
+        parameters=[
+            nav2_octomap_params_file,
+            {
+                'filter_ground_plane': True, 
+                'ground_filter.angle': 0.8,
+                'ground_filter.distance': 0.2,       # 20cm (노이즈 허용)
+                'ground_filter.plane_distance': 0.3  # 30cm (높이 오차 허용)
+            }
+        ],
+        remappings=[
+            ('cloud_in', '/cloud_registered')
+        ]
+    )
 
-    delayed_fast_lio = TimerAction(
+    # Delay FAST-LIO and RViz and Octomap
+    delayed_fast_lio_octomap = TimerAction(
         period=10.0,
-        actions=[fast_lio_node, rviz_node]
+        actions=[fast_lio_node, rviz_node, octomap_node]
     )
 
     return LaunchDescription([
         arg_scenario,
         arg_gui,
         sim_launch,
-        delayed_fast_lio
+        delayed_fast_lio_octomap
     ])
