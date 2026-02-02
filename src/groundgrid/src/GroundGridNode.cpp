@@ -547,11 +547,6 @@ public:
       // put cloud back to sensor frame
       try {
         // Log fields of filtered cloud
-        std::stringstream ss;
-        for (const auto &field : cloud_msg_out->fields)
-          ss << field.name << " ";
-        RCLCPP_INFO(get_logger(), "Filtered Cloud fields: %s",
-                    ss.str().c_str());
 
         tf2::doTransform(*cloud_msg_out, *cloud_msg_out, revtransformStamped);
         filtered_cloud_pub_->publish(*cloud_msg_out);
