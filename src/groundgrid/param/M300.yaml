@@ -1,0 +1,43 @@
+groundgrid:
+  ros__parameters:
+    # Dataset / Sensor selection
+    dataset_name: "live"
+    sensor: "M300"
+    
+    # Algorithm Parameters for M300 (High density, non-repetitive)
+    # M300 produces a dense cloud, so we can treat it like a very high-res sensor.
+    
+    point_count_cell_variance_thres: 30       # Minimum points to use cell variance
+    max_ring: 1024                            # M300 has virtual lines, effectively infinite rings for our purpose
+    groundpatch_detection_minimum_thres: 1.0
+    distance_factor: 0.0001
+    min_distance_factor: 0.0005
+    min_point_height_thres: 0.2               # 20cm tolerance for ground (adjustable based on terrain)
+    min_point_height_obstacle_thres: 0.1
+    outlier_tolerance: 0.1
+    min_ground_patch_detection_point_count_thres: 0.25
+    patch_size_change_distance: 20.0
+    occupied_cells_decrease_factor: 5.0
+    occupied_cells_point_count_factor: 20.0
+    min_outlier_detection_ground_confidence: 1.25
+    max_threads: 4
+    
+    # Horizontal resolution (radians)
+    # M300 has high density. 0.1 degree ~ 0.0017 rad. 
+    # Providing a small value ensuring adjacent points are considered close.
+    horizontal_point_ang_dist: 0.001745
+    
+    # Minimum distance squared (blind spot handling)
+    # M300 blind spot is ~0.1m -> 0.1^2 = 0.01
+    # However, to avoid self-collision with robot body, usually set higher (e.g., 1.0 for 1m radius)
+    min_dist_squared: 1.0  
+    
+    visualize: false
+    evaluation: false
+    
+    # Tuning factors
+    tuning:
+      variance_factor: 0.35
+      normals_factor: 0.09
+      intensity_factor: 50.0
+      intensity_shift: 0.0

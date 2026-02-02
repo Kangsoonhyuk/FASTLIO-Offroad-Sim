@@ -300,6 +300,10 @@ void lasermap_fov_segment() {
 
 void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::UniquePtr msg) {
   mtx_buffer.lock();
+  static int debug_scan_count = 0;
+  if (debug_scan_count++ % 10 == 0)
+    RCLCPP_INFO(rclcpp::get_logger("fastlio_mapping"), "Received Lidar msg %d",
+                debug_scan_count);
   scan_count++;
   double cur_time = get_time_sec(msg->header.stamp);
   double preprocess_start_time = omp_get_wtime();
@@ -947,8 +951,11 @@ public:
       sub_pcl_pc_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
           lid_topic, rclcpp::SensorDataQoS(), standard_pcl_cbk);
     }
-    sub_imu_ = this->create_subscription<sensor_msgs::msg::Imu>(imu_topic, 10,
-                                                                imu_cbk);
+    RCLCPP_INFO(rclcpp::get_logger("fastlio_mapping"),
+                "Subscribing to Lidar: %s, IMU: %s", lid_topic.c_str(),
+                imu_topic.c_str());
+    sub_imu_ = this->create_subscription<sensor_msgs::msg::Imu>(
+        imu_topic, rclcpp::SensorDataQoS(), imu_cbk);
     pubLaserCloudFull_ = this->create_publisher<sensor_msgs::msg::PointCloud2>(
         "/cloud_registered", 20);
     pubLaserCloudFull_body_ =

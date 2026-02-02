@@ -115,6 +115,19 @@ endif()
 
 ament_target_dependencies(fastlio_mapping ${dependencies})
 
+add_executable(elevation_mapping_node src/elevation_mapping_node.cpp)
+target_include_directories(elevation_mapping_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+  ${PCL_INCLUDE_DIRS}
+)
+target_link_libraries(elevation_mapping_node ${PCL_LIBRARIES} Eigen3::Eigen)
+ament_target_dependencies(elevation_mapping_node ${dependencies})
+
+install(TARGETS elevation_mapping_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 # ---------------- Install --------------- #
 install(TARGETS fastlio_mapping
   DESTINATION lib/${PROJECT_NAME}

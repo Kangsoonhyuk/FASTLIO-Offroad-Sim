@@ -53,9 +53,9 @@ def generate_launch_description():
             ('world', world_path),
             ('setup_path', '/home/kangsoonhyuk/clearpath_ws/setup/'),
             ('use_sim_time', 'true'),
-            ('x', '35.0'),
-            ('y', '6.0'),
-            ('z', '0.0'),
+            ('x', '32.0'),
+            ('y', '26.0'),
+            ('z', '3.0'),
             ('yaw', '0.0')
         ]
         

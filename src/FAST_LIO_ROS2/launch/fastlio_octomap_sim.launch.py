@@ -82,7 +82,7 @@ def generate_launch_description():
                 'filter_ground_plane': True, 
                 'ground_filter.angle': 0.8,
                 'ground_filter.distance': 0.2,       # 20cm (노이즈 허용)
-                'ground_filter.plane_distance': 0.3  # 30cm (높이 오차 허용)
+                'ground_filter.plane_distance': 0.6  # 30cm (높이 오차 허용)
             }
         ],
         remappings=[
