@@ -42,7 +42,7 @@ The environment is based on the modern **Clearpath ROS 2 Pipeline**, where we ha
 ## Usage
 ### Launching the Simulation
 
-- **Scenario 1 & 2 (Combined Test)**:
+- **Scenario 1 (Octomap)**:
   ```bash
   ros2 launch fast_lio fastlio_octomap_sim.launch.py
   ```
@@ -52,7 +52,7 @@ The environment is based on the modern **Clearpath ROS 2 Pipeline**, where we ha
   ros2 launch fast_lio fastlio_elevation_sim.launch.py
   ```
 
-- **Scenario 3 (Improved Mapping - Recommended)**:
+- **Scenario 3 (Groundgrid)**:
   ```bash
   ros2 launch fast_lio fastlio_groundgrid_sim.launch.py
   ```
@@ -66,9 +66,6 @@ This simulation uses a standard **Clearpath Husky A200** equipped with:
 All robot topics are namespaced. When using the **Gazebo Teleop plugin**, you **MUST** change the topic from `/cmd_vel` to:
 > **/(your_hostname)/cmd_vel**
 
-### World Modification
-The simulation world is located at `src/clearpath_simulator/clearpath_gz/worlds/pipeline.sdf`.
-
 ## Scenarios
 This simulation is designed to test main scenarios for off-road navigation:
 
@@ -78,22 +75,20 @@ This simulation is designed to test main scenarios for off-road navigation:
    - **Result**: As shown below, the generated 2D map is **not smooth and incomplete** in slope environments.
      <br/><img src="doc/img/fastlio_octomap_demo.gif" width="100%" />
      <br/>
-     **Conclusion**: The standard Octomap approach fails to generate a distinct and usable 2D grid map on uneven terrain. Further improvements (e.g., elevation-based filtering or alternative mapping packages) are required to address this issue.
+     **Result**: The standard Octomap approach fails to generate a distinct and usable 2D grid map on uneven terrain. Further improvements (e.g., elevation-based filtering or alternative mapping packages) are required to address this issue.
      <br/><img src="doc/img/octomap_failure.png" width="100%" />
 
 2. **Elevation Mapping (Experiment)**:
    - We tested using `elevation_mapping` to generate a 2.5D elevation map from the point cloud.
    - For more details, please refer to: [Elevation Mapping Details](src/FAST_LIO_ROS2/src/README.md)
-   - **Result**: It provides detailed terrain height information, but the generated map is computation-heavy and difficult to use for standard 2D navigation.
+   - **Result**: It provides detailed terrain height information
      <br/><img src="doc/img/elevation_output.gif" width="100%" />
 
-3. **GroundGrid (Recommended)**:
+3. **GroundGrid (Experiment)**:
    - We utilized `groundgrid` package which segments ground points from the LiDAR scan to create a traversability map.
    - For more details, please refer to: [GroundGrid Details](src/groundgrid/src/README.md)
    - **Result**: It generates a clean and distinct 2D grid map even on rough off-road terrain, successfully solving the issues seen in Octomap and Elevation Mapping.
      <br/><img src="doc/img/groundgrid_output.gif" width="100%" />
-
-## Demo Video
 
 ## Troubleshooting
 
