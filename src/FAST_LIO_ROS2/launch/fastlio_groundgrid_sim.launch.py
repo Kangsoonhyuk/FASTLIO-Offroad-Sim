@@ -22,7 +22,7 @@ def generate_launch_description():
         ),
         launch_arguments=[
             ('world', 'inspection_world'),
-            ('setup_path', '/home/kangsoonhyuk/clearpath_ws/src/clearpath_simulator/clearpath_gz')
+            ('setup_path', clearpath_gz_dir)
         ]
     )
 

@@ -36,7 +36,7 @@ def generate_launch_description():
     def launch_setup(context, *args, **kwargs):
         scenario_val = context.launch_configurations['scenario']
         gui_val = context.launch_configurations['gui']
-        base_path = '/home/kangsoonhyuk/clearpath_ws/src/clearpath_simulator/clearpath_gz/worlds'
+        base_path = os.path.join(get_package_share_directory('clearpath_gz'), 'worlds')
         
         if scenario_val == 'base':
             world_name = 'inspection_baseline'
@@ -51,7 +51,7 @@ def generate_launch_description():
         
         launch_args = [
             ('world', world_path),
-            ('setup_path', '/home/kangsoonhyuk/clearpath_ws/setup/'),
+            ('setup_path', pkg_clearpath_gz),
             ('use_sim_time', 'true'),
             ('x', '32.0'),
             ('y', '26.0'),
@@ -65,7 +65,7 @@ def generate_launch_description():
 
         # Calculate resource path
         packages_paths = [os.path.join(p, 'share') for p in os.getenv('AMENT_PREFIX_PATH', '').split(':')]
-        custom_model_path = '/home/kangsoonhyuk/clearpath_ws/src/clearpath_simulator/clearpath_gz/meshes'
+        custom_model_path = os.path.join(get_package_share_directory('clearpath_gz'), 'meshes')
         resource_paths = [os.path.join(pkg_clearpath_gz, 'worlds'), custom_model_path] + packages_paths
         
         set_resource_path = SetEnvironmentVariable(
