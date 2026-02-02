@@ -11,8 +11,11 @@ def generate_launch_description():
     # Include Packages
 
     # Declare launch files
-    launch_file_lidar3d_0 = '/home/kangsoonhyuk/clearpath_ws/setup/sensors/launch/lidar3d_0.launch.py'
-    launch_file_imu_0 = '/home/kangsoonhyuk/clearpath_ws/setup/sensors/launch/imu_0.launch.py'
+    pkg_clearpath_gz = FindPackageShare('clearpath_gz')
+    launch_file_lidar3d_0 = PathJoinSubstitution([
+        pkg_clearpath_gz, 'config', 'setup', 'sensors', 'launch', 'lidar3d_0.launch.py'])
+    launch_file_imu_0 = PathJoinSubstitution([
+        pkg_clearpath_gz, 'config', 'setup', 'sensors', 'launch', 'imu_0.launch.py'])
 
     # Include launch files
     launch_lidar3d_0 = IncludeLaunchDescription(

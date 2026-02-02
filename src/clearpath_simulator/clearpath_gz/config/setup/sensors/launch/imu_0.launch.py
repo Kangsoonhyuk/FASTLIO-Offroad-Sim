@@ -27,7 +27,9 @@ def generate_launch_description():
                 {
                     'use_sim_time': True
                     ,
-                    'config_file': '/home/kangsoonhyuk/clearpath_ws/setup/sensors/config/imu_0.yaml'
+                    'config_file': PathJoinSubstitution([
+                        FindPackageShare('clearpath_gz'),
+                        'config', 'setup', 'sensors', 'config', 'imu_0.yaml'])
                     ,
                 }
                 ,

@@ -23,7 +23,7 @@ def generate_launch_description():
                 (
                     'setup_path'
                     ,
-                    '/home/kangsoonhyuk/clearpath_ws/setup/'
+                PathJoinSubstitution([FindPackageShare('clearpath_gz'), 'config', 'setup'])
                 )
                 ,
                 (
