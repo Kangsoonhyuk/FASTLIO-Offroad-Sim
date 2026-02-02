@@ -43,7 +43,7 @@ def generate_launch_description():
 
     # 2. Launch FAST-LIO directly (Override Parameters)
     config_file = PathJoinSubstitution([fast_lio_dir, 'config', 'velodyne_simulation.yaml'])
-    rviz_config = PathJoinSubstitution([fast_lio_dir, 'rviz', 'fastlio.rviz'])
+    rviz_config = PathJoinSubstitution([fast_lio_dir, 'rviz', 'fastlio_octomap.rviz'])
 
     fast_lio_node = Node(
         package='fast_lio',
