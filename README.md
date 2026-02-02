@@ -75,13 +75,13 @@ This simulation is designed to test main scenarios for off-road navigation:
    - **Result**: As shown below, the generated 2D map is **not smooth and incomplete** in slope environments.
      <br/><img src="doc/img/fastlio_octomap_demo.gif" width="100%" />
      <br/>
-     **Result**: The standard Octomap approach fails to generate a distinct and usable 2D grid map on uneven terrain. Further improvements (e.g., elevation-based filtering or alternative mapping packages) are required to address this issue.
+     **Conclusion**: The standard Octomap approach fails to generate a distinct and usable 2D grid map on uneven terrain. Further improvements (e.g., elevation-based filtering or alternative mapping packages) are required to address this issue.
      <br/><img src="doc/img/octomap_failure.png" width="100%" />
 
 2. **Elevation Mapping (Experiment)**:
    - We tested using `elevation_mapping` to generate a 2.5D elevation map from the point cloud.
    - For more details, please refer to: [Elevation Mapping Details](src/FAST_LIO_ROS2/src/README.md)
-   - **Result**: It provides detailed terrain height information
+   - **Result**: By utilizing 2.5D height information, it distinguishes slopes from obstacles, successfully generating accurate maps even on uneven terrain.
      <br/><img src="doc/img/elevation_output.gif" width="100%" />
 
 3. **GroundGrid (Experiment)**:
@@ -104,7 +104,7 @@ This simulation is designed to test main scenarios for off-road navigation:
   - **Cause**: Transient simulation artifacts (e.g., raycasting hitting sky or NaNs during rapid movement) result in frames with zero valid points after filtering.
   - **Solution**: **Safe to ignore**. This is a common simulation quirk and does not affect mapping if the robot pose continues to update correctly.
 
-
+<br>
 ---
 
 ## Acknowledgments
