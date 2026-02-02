@@ -113,4 +113,4 @@ This project makes use of the following open-source packages:
 - **[Clearpath Robotics](https://github.com/clearpathrobotics)**: Husky platform, simulation environment, and configuration tools.
 - **[Velodyne Simulator](https://github.com/ToyToyota/velodyne_simulator)**: Simulation plugins for Velodyne LiDAR.
 - **[FAST_LIO](https://github.com/hku-mars/FAST_LIO)**: Fast-LIO2 framework for SLAM.
-- **[GroundGrid](https://www.autonomos-labs.de/)**: LiDAR Point Cloud Segmentation and Terrain Estimation by Autonomos-Labs.
+- **[GroundGrid](https://github.com/dcmlr/groundgrid)**: LiDAR Point Cloud Segmentation and Terrain Estimation by Autonomos-Labs.
