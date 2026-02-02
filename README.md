@@ -42,14 +42,14 @@ The environment is based on the modern **Clearpath ROS 2 Pipeline**, where we ha
 ## Usage
 ### Launching the Simulation
 
-- **Scenario 1 & 2.1 (Baseline)**:
+- **Scenario 1 & 2 (Combined Test)**:
   ```bash
-  ros2 launch fast_lio fastlio_sim.launch.py scenario:=base
+  ros2 launch fast_lio fastlio_octomap_sim.launch.py
   ```
 
-- **Scenario 2.2 (Test Case)**:
+- **Scenario (Improved Mapping)**:
   ```bash
-  ros2 launch fast_lio fastlio_sim.launch.py scenario:=test
+  
   ```
 
 ### Robot Configuration & Teleoperation
@@ -65,19 +65,16 @@ All robot topics are namespaced. When using the **Gazebo Teleop plugin**, you **
 The simulation world is located at `src/clearpath_simulator/clearpath_gz/worlds/pipeline.sdf`.
 
 ## Scenarios
-This simulation is designed to test three main scenarios for off-road autonomous navigation:
+This simulation is designed to test main scenarios for off-road autonomous navigation:
 
-1. **Off-road Autonomous Navigation**: 
-   - The Husky robot navigates towards a goal in a rough terrain environment (Inspection World) filled with slopes and dense trees.
-     <br/><img src="doc/img/scenario_offroad.png" width="60%" />
 
-2. **Performance Comparison**:
-   - **Case 2.1 (Baseline)**: Navigation in an obstacle-free, flat terrain.
-     <br/><img src="doc/img/scenario_baseline.jpg" width="60%" />
-   - **Case 2.2 (Test Case)**: Navigation in the "Inspection World" with obstacles (trees) and significant slopes.
-     <br/><img src="doc/img/scenario_test.jpg" width="60%" />
-   
-   The goal is to compare the robustness and efficiency of the navigation stack (FAST-LIO + Nav2) between these conditions.
+1. **Octomap (Experiment)**: 
+   - We tested using Octomap to generate a 2D grid map from the 3D point cloud.
+   - **Result**: As shown below, the generated 2D map is **not smooth and incomplete** in slope environments.
+     <br/><img src="doc/img/fastlio_octomap_demo.gif" width="100%" />
+     <br/>
+     **Conclusion**: The standard Octomap approach fails to generate a distinct and usable 2D grid map on uneven terrain. Further improvements (e.g., elevation-based filtering or alternative mapping packages) are required to address this issue.
+     <br/><img src="doc/img/octomap_failure.png" width="100%" />
 
 ## Demo Video
 
