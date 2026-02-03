@@ -51,7 +51,7 @@ def generate_launch_description():
         
         launch_args = [
             ('world', world_path),
-            ('setup_path', pkg_clearpath_gz),
+            ('setup_path', os.path.join(pkg_clearpath_gz, 'config', 'setup')),
             ('use_sim_time', 'true'),
             ('x', '32.0'),
             ('y', '26.0'),

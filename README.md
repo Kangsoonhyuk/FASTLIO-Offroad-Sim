@@ -86,7 +86,7 @@ This simulation is designed to test main scenarios for off-road navigation:
 
 3. **GroundGrid (Experiment)**:
    - We utilized `groundgrid` package which segments ground points from the LiDAR scan to create a traversability map.
-   - For more details, please refer to: [GroundGrid Details](src/groundgrid/src/README.md)
+   - For more details, please refer to: contributed by [Lee Jun-Hyeok](https://github.com/Hyeokk/VIL-Project-Simulation?tab=readme-ov-file)
    - **Result**: It generates a clean and distinct 2D grid map even on rough off-road terrain, successfully solving the issues seen in Octomap and Elevation Mapping.
      <br/><img src="doc/img/groundgrid_output.gif" width="100%" />
 
