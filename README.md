@@ -105,6 +105,7 @@ This simulation is designed to test main scenarios for off-road navigation:
   - **Solution**: **Safe to ignore**. This is a common simulation quirk and does not affect mapping if the robot pose continues to update correctly.
 
 <br>
+
 ---
 
 ## Acknowledgments
