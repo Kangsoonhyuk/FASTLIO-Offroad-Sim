@@ -80,13 +80,13 @@ This simulation is designed to test main scenarios for off-road navigation:
 
 2. **Elevation Mapping (Experiment)**:
    - We tested using `elevation_mapping` to generate a 2.5D elevation map from the point cloud.
-   - For more details, please refer to: [Elevation Mapping Details](src/FAST_LIO_ROS2/src/README.md)
+   - For more details, please refer to: [Elevation Mapping Details](https://github.com/jangeunhyeog/Slope_2D_MAP_wih_FAST_LIO2)
    - **Result**: By utilizing 2.5D height information, it distinguishes slopes from obstacles, successfully generating accurate maps even on uneven terrain.
      <br/><img src="doc/img/elevation_output.gif" width="100%" />
 
 3. **GroundGrid (Experiment)**:
    - We utilized `groundgrid` package which segments ground points from the LiDAR scan to create a traversability map.
-   - For more details, please refer to: [Lee Jun-Hyeok](https://github.com/Hyeokk/VIL-Project-Simulation?tab=readme-ov-file)
+   - For more details, please refer to: [GroundGrid using FAST-LIO detail](https://github.com/Hyeokk/VIL-Project-Simulation?tab=readme-ov-file)
    - **Result**: It generates a clean and distinct 2D grid map even on rough off-road terrain, successfully solving the issues seen in Octomap and Elevation Mapping.
      <br/><img src="doc/img/groundgrid_output.gif" width="100%" />
 
